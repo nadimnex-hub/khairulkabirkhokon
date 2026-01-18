@@ -43,13 +43,14 @@ const Header = () => {
               ))}
             </nav>
 
-            {/* CTA Button */}
+            {/* CTA Button - Bright Red/Gold accent */}
             <div className="flex items-center gap-4">
               <Button 
                 onClick={() => setIsComplaintOpen(true)}
-                className="hidden sm:flex bg-accent hover:bg-accent/90 text-accent-foreground gap-2"
+                className="hidden sm:flex gap-2 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg shadow-accent/30 animate-pulse-soft"
+                size="lg"
               >
-                <MessageSquare className="w-4 h-4" />
+                <MessageSquare className="w-5 h-5" />
                 <span className="font-bengali">অভিযোগ / যোগাযোগ</span>
               </Button>
 
@@ -83,9 +84,10 @@ const Header = () => {
                   setIsComplaintOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="sm:hidden bg-accent hover:bg-accent/90 text-accent-foreground gap-2 w-full"
+                className="sm:hidden bg-accent hover:bg-accent/90 text-accent-foreground gap-2 w-full font-semibold shadow-lg"
+                size="lg"
               >
-                <MessageSquare className="w-4 h-4" />
+                <MessageSquare className="w-5 h-5" />
                 <span className="font-bengali">অভিযোগ / যোগাযোগ</span>
               </Button>
             </nav>

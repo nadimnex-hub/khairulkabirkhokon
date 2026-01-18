@@ -4,6 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
+// Import gallery images
+import galleryRally from "@/assets/gallery-rally.jpg";
+import galleryDevelopment from "@/assets/gallery-development.jpg";
+import galleryParliament from "@/assets/gallery-parliament.jpg";
+import galleryYouth from "@/assets/gallery-youth.jpg";
+import galleryEducation from "@/assets/gallery-education.jpg";
+import galleryHealthcare from "@/assets/gallery-healthcare.jpg";
+
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -21,12 +29,12 @@ const GallerySection = () => {
   });
 
   const placeholderImages = [
-    { id: 1, caption: "জনসভা", gradient: "from-primary/30 to-accent/20" },
-    { id: 2, caption: "উন্নয়ন প্রকল্প", gradient: "from-accent/30 to-primary/20" },
-    { id: 3, caption: "সংসদে বক্তব্য", gradient: "from-primary/20 to-primary/40" },
-    { id: 4, caption: "যুব সম্মেলন", gradient: "from-accent/20 to-accent/40" },
-    { id: 5, caption: "শিক্ষা কার্যক্রম", gradient: "from-primary/40 to-accent/30" },
-    { id: 6, caption: "স্বাস্থ্য সেবা", gradient: "from-accent/40 to-primary/30" },
+    { id: "1", caption: "জনসভা", image_url: galleryRally },
+    { id: "2", caption: "উন্নয়ন প্রকল্প", image_url: galleryDevelopment },
+    { id: "3", caption: "সংসদে বক্তব্য", image_url: galleryParliament },
+    { id: "4", caption: "যুব সম্মেলন", image_url: galleryYouth },
+    { id: "5", caption: "শিক্ষা কার্যক্রম", image_url: galleryEducation },
+    { id: "6", caption: "স্বাস্থ্য সেবা", image_url: galleryHealthcare },
   ];
 
   const displayGallery = gallery && gallery.length > 0 ? gallery : placeholderImages;
@@ -62,17 +70,11 @@ const GallerySection = () => {
                   index === 0 ? "md:col-span-2 md:row-span-2" : ""
                 }`}
               >
-                {item.image_url ? (
-                  <img 
-                    src={item.image_url} 
-                    alt={item.caption || "Gallery image"}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                ) : (
-                  <div className={`w-full h-full bg-gradient-to-br ${item.gradient || 'from-primary/20 to-accent/20'} flex items-center justify-center`}>
-                    <span className="font-bengali text-lg text-foreground/60">{item.caption}</span>
-                  </div>
-                )}
+                <img 
+                  src={item.image_url} 
+                  alt={item.caption || "Gallery image"}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
                 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">

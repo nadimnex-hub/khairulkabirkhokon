@@ -1,6 +1,7 @@
 import { ChevronDown, Play } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import heroBackground from "@/assets/hero-background.jpg";
 
 const HeroSection = () => {
   const { data: heroContent } = useQuery({
@@ -18,8 +19,12 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background with gradient */}
-      <div className="absolute inset-0 bg-[var(--gradient-hero)]" />
+      {/* Background Image with overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBackground})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-primary/70" />
       
       {/* Pattern overlay */}
       <div className="absolute inset-0 opacity-10">
@@ -34,27 +39,27 @@ const HeroSection = () => {
       <div className="absolute top-1/2 right-1/4 w-16 h-16 bg-accent/30 rounded-full blur-lg animate-float animation-delay-400" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
+      <div className="relative z-10 container mx-auto px-4 text-center pt-16">
         <div className="max-w-4xl mx-auto">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 animate-fade-up">
             <div className="w-2 h-2 bg-accent rounded-full animate-pulse-soft" />
-            <span className="font-bengali text-sm text-white/90">সংসদ সদস্য, নরসিংদী</span>
+            <span className="font-bengali text-sm text-white/90">যুগ্ম মহাসচিব, বিএনপি</span>
           </div>
 
           {/* Title */}
           <h1 className="font-bengali text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fade-up animation-delay-100">
-            {heroContent?.title || "গণতন্ত্র মুক্তির প্রহরী"}
+            {heroContent?.title || "গণতন্ত্র মুক্তির প্রহরী: খায়রুল কবির খোকন"}
           </h1>
 
           {/* Subtitle */}
-          <p className="font-bengali text-2xl sm:text-3xl md:text-4xl text-white/90 mb-8 animate-fade-up animation-delay-200">
-            {heroContent?.content || "খায়রুল কবির খোকন"}
+          <p className="font-bengali text-xl sm:text-2xl md:text-3xl text-white/90 mb-8 animate-fade-up animation-delay-200">
+            {heroContent?.content || "যুগ্ম মহাসচিব, বাংলাদেশ জাতীয়তাবাদী দল (বিএনপি) ও সাবেক সংসদ সদস্য।"}
           </p>
 
           {/* Description */}
           <p className="font-bengali text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-12 animate-fade-up animation-delay-300">
-            ডাকসু সাবেক জিএস থেকে সংসদ সদস্য — জনগণের সেবায় নিবেদিত এক জীবন
+            ডাকসু সাবেক জিএস থেকে জাতীয় নেতৃত্ব — জনগণের সেবায় নিবেদিত এক জীবন
           </p>
 
           {/* CTAs */}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
   LayoutDashboard, 
@@ -170,7 +170,6 @@ const AdminDashboard = () => {
 };
 
 // Content Editor Component
-import React from "react";
 const ContentEditor = React.forwardRef<HTMLDivElement, { siteContent: any[] | undefined }>(({ siteContent }, ref) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();

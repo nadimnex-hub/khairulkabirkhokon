@@ -1,0 +1,116 @@
+import { Facebook, Twitter, Youtube, Phone, Mail, MapPin, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
+
+const Footer = () => {
+  const socialLinks = [
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Youtube, href: "#", label: "YouTube" },
+  ];
+
+  const quickLinks = [
+    { href: "#home", label: "হোম" },
+    { href: "#biography", label: "জীবনী" },
+    { href: "#vision", label: "ভিশন" },
+    { href: "#news", label: "সংবাদ" },
+    { href: "#gallery", label: "গ্যালারি" },
+  ];
+
+  return (
+    <footer className="bg-foreground text-background">
+      {/* Main Footer */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
+                <span className="text-primary-foreground font-bengali font-bold text-xl">খ</span>
+              </div>
+              <div>
+                <h3 className="font-bengali font-bold text-lg">খায়রুল কবির খোকন</h3>
+                <p className="font-bengali text-sm text-background/60">সংসদ সদস্য, নরসিংদী</p>
+              </div>
+            </div>
+            <p className="font-bengali text-background/70 leading-relaxed">
+              গণতন্ত্র ও জনগণের অধিকার রক্ষায় নিবেদিত। আপনার কণ্ঠস্বর হতে পেরে গর্বিত।
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-bengali font-semibold text-lg mb-6">দ্রুত লিংক</h4>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <a 
+                    href={link.href}
+                    className="font-bengali text-background/70 hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="font-bengali font-semibold text-lg mb-6">যোগাযোগ</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <span className="font-bengali text-background/70">নরসিংদী, বাংলাদেশ</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-primary flex-shrink-0" />
+                <span className="font-bengali text-background/70">+৮৮০ XXXX-XXXXXX</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-primary flex-shrink-0" />
+                <span className="text-background/70">contact@example.com</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Social */}
+          <div>
+            <h4 className="font-bengali font-semibold text-lg mb-6">সোশ্যাল মিডিয়া</h4>
+            <div className="flex gap-3">
+              {socialLinks.map((social) => (
+                <a 
+                  key={social.label}
+                  href={social.href}
+                  className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary transition-colors group"
+                  aria-label={social.label}
+                >
+                  <social.icon className="w-5 h-5 text-background/70 group-hover:text-primary-foreground" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-background/10">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="font-bengali text-sm text-background/50">
+              © ২০২৬ খায়রুল কবির খোকন। সর্বস্বত্ব সংরক্ষিত।
+            </p>
+            <Link 
+              to="/admin"
+              className="flex items-center gap-2 text-sm text-background/40 hover:text-background/60 transition-colors"
+            >
+              <Lock className="w-4 h-4" />
+              <span>Admin Login</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

@@ -170,7 +170,8 @@ const AdminDashboard = () => {
 };
 
 // Content Editor Component
-const ContentEditor = ({ siteContent }: { siteContent: any[] | undefined }) => {
+import React from "react";
+const ContentEditor = React.forwardRef<HTMLDivElement, { siteContent: any[] | undefined }>(({ siteContent }, ref) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [editingContent, setEditingContent] = useState<Record<string, { title: string; content: string }>>({});
@@ -193,9 +194,11 @@ const ContentEditor = ({ siteContent }: { siteContent: any[] | undefined }) => {
         .eq("id", id);
       if (error) throw error;
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
+      // Invalidate all site-content related queries including specific ones
       queryClient.invalidateQueries({ queryKey: ["admin-site-content"] });
       queryClient.invalidateQueries({ queryKey: ["site-content"] });
+      queryClient.invalidateQueries({ queryKey: ["site-content", variables.id] });
       toast({ title: "সফল", description: "কন্টেন্ট আপডেট করা হয়েছে" });
     },
     onError: () => {
@@ -264,10 +267,11 @@ const ContentEditor = ({ siteContent }: { siteContent: any[] | undefined }) => {
       </div>
     </div>
   );
-};
+});
+ContentEditor.displayName = "ContentEditor";
 
 // News Manager Component
-const NewsManager = ({ news }: { news: any[] | undefined }) => {
+const NewsManager = React.forwardRef<HTMLDivElement, { news: any[] | undefined }>(({ news }, ref) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [newNews, setNewNews] = useState({ title: "", description: "", image: null as File | null });
@@ -386,10 +390,11 @@ const NewsManager = ({ news }: { news: any[] | undefined }) => {
       </div>
     </div>
   );
-};
+});
+NewsManager.displayName = "NewsManager";
 
 // Gallery Manager Component
-const GalleryManager = ({ gallery }: { gallery: any[] | undefined }) => {
+const GalleryManager = React.forwardRef<HTMLDivElement, { gallery: any[] | undefined }>(({ gallery }, ref) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [newImage, setNewImage] = useState<{ file: File | null; caption: string }>({
@@ -498,10 +503,11 @@ const GalleryManager = ({ gallery }: { gallery: any[] | undefined }) => {
       </div>
     </div>
   );
-};
+});
+GalleryManager.displayName = "GalleryManager";
 
 // Complaints Viewer Component with Status Toggle
-const ComplaintsViewer = ({ complaints, onUpdate }: { complaints: any[] | undefined; onUpdate: () => void }) => {
+const ComplaintsViewer = React.forwardRef<HTMLDivElement, { complaints: any[] | undefined; onUpdate: () => void }>(({ complaints, onUpdate }, ref) => {
   const { toast } = useToast();
   
   const updateStatusMutation = useMutation({
@@ -626,6 +632,7 @@ const ComplaintsViewer = ({ complaints, onUpdate }: { complaints: any[] | undefi
       </div>
     </div>
   );
-};
+});
+ComplaintsViewer.displayName = "ComplaintsViewer";
 
 export default AdminDashboard;

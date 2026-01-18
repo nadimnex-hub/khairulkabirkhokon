@@ -4,13 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-// Import gallery images
+// Import real gallery images
 import galleryRally from "@/assets/gallery-rally.jpg";
-import galleryDevelopment from "@/assets/gallery-development.jpg";
-import galleryParliament from "@/assets/gallery-parliament.jpg";
-import galleryYouth from "@/assets/gallery-youth.jpg";
-import galleryEducation from "@/assets/gallery-education.jpg";
-import galleryHealthcare from "@/assets/gallery-healthcare.jpg";
+import galleryProtest from "@/assets/gallery-protest.jpg";
+import galleryHistoric from "@/assets/gallery-historic.jpg";
+import galleryFamily from "@/assets/gallery-family.jpg";
+import gallerySacrifice from "@/assets/gallery-sacrifice.jpg";
+import leaderPortrait from "@/assets/leader-portrait.jpg";
 
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -29,12 +29,12 @@ const GallerySection = () => {
   });
 
   const placeholderImages = [
-    { id: "1", caption: "জনসভা", image_url: galleryRally },
-    { id: "2", caption: "উন্নয়ন প্রকল্প", image_url: galleryDevelopment },
-    { id: "3", caption: "সংসদে বক্তব্য", image_url: galleryParliament },
-    { id: "4", caption: "যুব সম্মেলন", image_url: galleryYouth },
-    { id: "5", caption: "শিক্ষা কার্যক্রম", image_url: galleryEducation },
-    { id: "6", caption: "স্বাস্থ্য সেবা", image_url: galleryHealthcare },
+    { id: "1", caption: "স্বদেশ প্রত্যাবর্তন অভিনন্দন", image_url: galleryRally },
+    { id: "2", caption: "প্রতিবাদ মিছিল", image_url: galleryProtest },
+    { id: "3", caption: "ঐতিহাসিক মুহূর্ত", image_url: galleryHistoric },
+    { id: "4", caption: "পারিবারিক সাক্ষাৎ", image_url: galleryFamily },
+    { id: "5", caption: "গণতন্ত্রের জন্য ত্যাগ", image_url: gallerySacrifice },
+    { id: "6", caption: "কৃষকের পাশে", image_url: leaderPortrait },
   ];
 
   const displayGallery = gallery && gallery.length > 0 ? gallery : placeholderImages;

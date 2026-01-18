@@ -14,7 +14,9 @@ import {
   Calendar,
   User,
   Phone,
-  MapPin
+  MapPin,
+  CheckCircle,
+  Clock
 } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -30,13 +32,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -93,7 +89,7 @@ const AdminDashboard = () => {
   });
 
   // Fetch complaints
-  const { data: complaints } = useQuery({
+  const { data: complaints, refetch: refetchComplaints } = useQuery({
     queryKey: ["admin-complaints"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -165,7 +161,7 @@ const AdminDashboard = () => {
 
           {/* Complaints Viewer */}
           <TabsContent value="complaints">
-            <ComplaintsViewer complaints={complaints} />
+            <ComplaintsViewer complaints={complaints} onUpdate={refetchComplaints} />
           </TabsContent>
         </Tabs>
       </main>
@@ -504,20 +500,78 @@ const GalleryManager = ({ gallery }: { gallery: any[] | undefined }) => {
   );
 };
 
-// Complaints Viewer Component
-const ComplaintsViewer = ({ complaints }: { complaints: any[] | undefined }) => {
+// Complaints Viewer Component with Status Toggle
+const ComplaintsViewer = ({ complaints, onUpdate }: { complaints: any[] | undefined; onUpdate: () => void }) => {
+  const { toast } = useToast();
+  
+  const updateStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase
+        .from("complaints")
+        .update({ status })
+        .eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      onUpdate();
+      toast({ title: "সফল", description: "স্ট্যাটাস আপডেট করা হয়েছে" });
+    },
+    onError: () => {
+      toast({ title: "ত্রুটি", description: "আপডেট করতে সমস্যা হয়েছে", variant: "destructive" });
+    },
+  });
+
+  const handleStatusToggle = (id: string, currentStatus: string) => {
+    const newStatus = currentStatus === "pending" ? "resolved" : "pending";
+    updateStatusMutation.mutate({ id, status: newStatus });
+  };
+
+  const pendingCount = complaints?.filter(c => c.status === "pending").length || 0;
+  const resolvedCount = complaints?.filter(c => c.status === "resolved").length || 0;
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <h2 className="font-bengali text-2xl font-bold">অভিযোগ / পরামর্শ</h2>
-        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bengali">
-          মোট: {complaints?.length || 0}
-        </span>
+        <div className="flex gap-3">
+          <span className="px-3 py-1 bg-yellow-500/10 text-yellow-600 rounded-full text-sm font-bengali flex items-center gap-2">
+            <Clock className="w-4 h-4" />
+            পেন্ডিং: {pendingCount}
+          </span>
+          <span className="px-3 py-1 bg-green-500/10 text-green-600 rounded-full text-sm font-bengali flex items-center gap-2">
+            <CheckCircle className="w-4 h-4" />
+            সমাধান: {resolvedCount}
+          </span>
+        </div>
       </div>
 
       <div className="grid gap-4">
         {complaints?.map((complaint) => (
           <div key={complaint.id} className="bg-background rounded-xl border border-border p-6">
+            {/* Status Toggle */}
+            <div className="flex items-center justify-between mb-4 pb-4 border-b border-border">
+              <div className="flex items-center gap-3">
+                {complaint.status === "pending" ? (
+                  <div className="flex items-center gap-2 px-3 py-1 bg-yellow-500/10 text-yellow-600 rounded-full">
+                    <Clock className="w-4 h-4" />
+                    <span className="font-bengali text-sm">পেন্ডিং</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 text-green-600 rounded-full">
+                    <CheckCircle className="w-4 h-4" />
+                    <span className="font-bengali text-sm">সমাধান হয়েছে</span>
+                  </div>
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-bengali text-sm text-muted-foreground">সমাধান</span>
+                <Switch
+                  checked={complaint.status === "resolved"}
+                  onCheckedChange={() => handleStatusToggle(complaint.id, complaint.status)}
+                />
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-4 mb-4">
               <div className="flex items-center gap-2 text-sm">
                 <User className="w-4 h-4 text-muted-foreground" />

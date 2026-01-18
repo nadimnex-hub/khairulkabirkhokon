@@ -1,6 +1,7 @@
 import { Award, Users, Building, GraduationCap } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import leaderPortrait from "@/assets/leader-portrait.jpg";
 
 const BiographySection = () => {
   const { data: biographyContent } = useQuery({
@@ -30,14 +31,13 @@ const BiographySection = () => {
           {/* Image Side */}
           <div className="relative order-2 lg:order-1">
             <div className="relative">
-              {/* Main image placeholder */}
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-[var(--shadow-lg)] bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="font-bengali text-5xl text-primary font-bold">খ</span>
-                  </div>
-                  <p className="font-bengali text-lg text-muted-foreground">ছবি শীঘ্রই আসছে</p>
-                </div>
+              {/* Main image */}
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-[var(--shadow-lg)]">
+                <img 
+                  src={leaderPortrait} 
+                  alt="খায়রুল কবির খোকন"
+                  className="w-full h-full object-cover"
+                />
               </div>
               
               {/* Floating card */}
@@ -66,7 +66,7 @@ const BiographySection = () => {
             </h2>
 
             <p className="font-bengali text-lg text-muted-foreground leading-relaxed mb-8">
-              {biographyContent?.content || "খায়রুল কবির খোকন একজন বিশিষ্ট রাজনীতিবিদ এবং জনসেবক।"}
+              {biographyContent?.content || "ডাকসুর সাবেক জিএস এবং নব্বইয়ের ছাত্র আন্দোলনের অগ্রনায়ক খায়রুল কবির খোকন দেশ ও মানুষের অধিকার রক্ষায় সদা নিবেদিত।"}
             </p>
 
             {/* Milestones */}

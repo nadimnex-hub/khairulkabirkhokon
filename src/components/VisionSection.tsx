@@ -40,38 +40,38 @@ const VisionSection = () => {
   ];
 
   return (
-    <section id="vision" className="py-20 md:py-32 bg-background relative overflow-hidden">
+    <section id="vision" className="py-12 sm:py-20 md:py-32 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
       
-      <div className="container mx-auto px-4 relative">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-accent/10 border border-accent/20">
-            <Target className="w-4 h-4 text-accent" />
-            <span className="font-bengali text-sm text-accent font-medium">আমাদের লক্ষ্য</span>
+      <div className="container mx-auto px-4 sm:px-6 relative">
+        <div className="text-center mb-10 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6 rounded-full bg-accent/10 border border-accent/20">
+            <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent" />
+            <span className="font-bengali text-xs sm:text-sm text-accent font-medium">আমাদের লক্ষ্য</span>
           </div>
 
           <h2 className="section-heading font-bengali">
             {visionContent?.title || "ভবিষ্যৎ পরিকল্পনা"}
           </h2>
 
-          <p className="section-subheading font-bengali mx-auto">
+          <p className="section-subheading font-bengali mx-auto px-2">
             {visionContent?.content || "নরসিংদী ও বাংলাদেশের জন্য আমার স্বপ্ন হলো একটি সমৃদ্ধ সমাজ গড়ে তোলা।"}
           </p>
         </div>
 
         {/* Vision Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {visionPoints.map((point, index) => (
             <div 
               key={index}
               className="group card-elevated text-center hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
             >
-              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
-                <point.icon className="w-8 h-8 text-primary group-hover:text-primary-foreground transition-colors" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-6 rounded-xl sm:rounded-2xl bg-primary/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
+                <point.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary group-hover:text-primary-foreground transition-colors" />
               </div>
-              <h3 className="font-bengali font-semibold text-xl mb-3">{point.title}</h3>
-              <p className="font-bengali text-muted-foreground group-hover:text-primary-foreground/80 transition-colors">
+              <h3 className="font-bengali font-semibold text-sm sm:text-xl mb-1.5 sm:mb-3">{point.title}</h3>
+              <p className="font-bengali text-xs sm:text-base text-muted-foreground group-hover:text-primary-foreground/80 transition-colors leading-relaxed">
                 {point.desc}
               </p>
             </div>
@@ -79,14 +79,14 @@ const VisionSection = () => {
         </div>
 
         {/* Quote */}
-        <div className="mt-16 max-w-3xl mx-auto">
-          <blockquote className="relative">
-            <div className="absolute -top-4 -left-4 text-6xl text-primary/20 font-serif">"</div>
-            <p className="font-bengali text-xl md:text-2xl text-foreground leading-relaxed text-center italic">
+        <div className="mt-10 sm:mt-16 max-w-3xl mx-auto">
+          <blockquote className="relative px-4">
+            <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 text-4xl sm:text-6xl text-primary/20 font-serif">"</div>
+            <p className="font-bengali text-base sm:text-xl md:text-2xl text-foreground leading-relaxed text-center italic">
               গণতন্ত্র ও সুশাসন প্রতিষ্ঠার মাধ্যমে একটি উন্নত বাংলাদেশ গড়তে প্রতিশ্রুতিবদ্ধ
             </p>
-            <footer className="mt-6 text-center">
-              <cite className="font-bengali text-muted-foreground not-italic">— খায়রুল কবির খোকন</cite>
+            <footer className="mt-4 sm:mt-6 text-center">
+              <cite className="font-bengali text-sm sm:text-base text-muted-foreground not-italic">— খায়রুল কবির খোকন</cite>
             </footer>
           </blockquote>
         </div>

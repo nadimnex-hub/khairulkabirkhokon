@@ -40,46 +40,47 @@ const GallerySection = () => {
   const displayGallery = gallery && gallery.length > 0 ? gallery : placeholderImages;
 
   return (
-    <section id="gallery" className="py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-accent/10 border border-accent/20">
-            <Image className="w-4 h-4 text-accent" />
-            <span className="font-bengali text-sm text-accent font-medium">ফটো গ্যালারি</span>
+    <section id="gallery" className="py-12 sm:py-20 md:py-32 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6 rounded-full bg-accent/10 border border-accent/20">
+            <Image className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent" />
+            <span className="font-bengali text-xs sm:text-sm text-accent font-medium">ফটো গ্যালারি</span>
           </div>
 
           <h2 className="section-heading font-bengali">কার্যক্রমের চিত্র</h2>
-          <p className="section-subheading font-bengali mx-auto">
+          <p className="section-subheading font-bengali mx-auto px-2">
             বিভিন্ন কর্মসূচি ও জনসম্পৃক্ততার কিছু মুহূর্ত
           </p>
         </div>
 
         {isLoading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="aspect-square bg-muted rounded-2xl animate-pulse" />
+              <div key={i} className="aspect-square bg-muted rounded-lg sm:rounded-2xl animate-pulse" />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {displayGallery.map((item, index) => (
               <button
                 key={item.id}
                 onClick={() => item.image_url && setSelectedImage(item.image_url)}
-                className={`group relative aspect-square rounded-2xl overflow-hidden ${
-                  index === 0 ? "md:col-span-2 md:row-span-2" : ""
+                className={`group relative aspect-square rounded-lg sm:rounded-2xl overflow-hidden touch-target ${
+                  index === 0 ? "sm:col-span-2 sm:row-span-2" : ""
                 }`}
               >
                 <img 
                   src={item.image_url} 
                   alt={item.caption || "Gallery image"}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
                 />
                 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="font-bengali text-white text-sm">{item.caption}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 sm:transition-opacity sm:duration-300 active:opacity-100">
+                  <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4">
+                    <p className="font-bengali text-white text-xs sm:text-sm">{item.caption}</p>
                   </div>
                 </div>
               </button>
@@ -90,18 +91,19 @@ const GallerySection = () => {
 
       {/* Lightbox */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="max-w-4xl p-0 bg-transparent border-none">
+        <DialogContent className="max-w-[95vw] sm:max-w-4xl p-1 sm:p-0 bg-transparent border-none">
           <button 
             onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors touch-target"
+            aria-label="Close"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
           {selectedImage && (
             <img 
               src={selectedImage} 
               alt="Gallery preview"
-              className="w-full h-auto rounded-lg"
+              className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
             />
           )}
         </DialogContent>

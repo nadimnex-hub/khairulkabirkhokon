@@ -30,15 +30,15 @@ const BiographySection = () => {
   ];
 
   return (
-    <section id="biography" className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+    <section id="biography" className="py-12 sm:py-16 md:py-24 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Left Side - Image + Info Cards */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Main image with green accent */}
             <div className="relative">
-              <div className="absolute -left-3 top-0 bottom-0 w-1.5 bg-primary rounded-full" />
-              <div className="aspect-square max-w-md overflow-hidden rounded-lg shadow-lg">
+              <div className="absolute -left-2 sm:-left-3 top-0 bottom-0 w-1 sm:w-1.5 bg-primary rounded-full" />
+              <div className="aspect-[4/5] sm:aspect-square max-w-sm sm:max-w-md mx-auto lg:mx-0 overflow-hidden rounded-lg shadow-lg">
                 <img 
                   src={leaderPortrait} 
                   alt="খায়রুল কবির খোকন"
@@ -48,26 +48,26 @@ const BiographySection = () => {
             </div>
             
             {/* Info Cards */}
-            <div className="max-w-md space-y-3">
+            <div className="max-w-sm sm:max-w-md mx-auto lg:mx-0 space-y-2 sm:space-y-3">
               {infoCards.map((card, index) => (
                 <div 
                   key={index}
-                  className="bg-muted/50 border-l-4 border-primary p-4 rounded-r-lg"
+                  className="bg-muted/50 border-l-4 border-primary p-3 sm:p-4 rounded-r-lg"
                 >
-                  <h4 className="font-bengali font-semibold text-foreground text-sm">{card.title}</h4>
-                  <p className="font-bengali text-muted-foreground text-sm">{card.value}</p>
+                  <h4 className="font-bengali font-semibold text-foreground text-xs sm:text-sm">{card.title}</h4>
+                  <p className="font-bengali text-muted-foreground text-xs sm:text-sm">{card.value}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right Side - Content */}
-          <div className="space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold font-bengali text-foreground">
+          <div className="space-y-6 sm:space-y-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-bengali text-foreground text-center lg:text-left">
               {biographyContent?.title || "জীবন ও সংগ্রাম"}
             </h2>
 
-            <div className="space-y-4 text-muted-foreground font-bengali leading-relaxed">
+            <div className="space-y-3 sm:space-y-4 text-muted-foreground font-bengali leading-relaxed text-sm sm:text-base">
               <p>
                 বাংলাদেশের রাজনৈতিক ইতিহাসে খায়রুল কবির খোকন একজন নিষ্ঠাবান ও সাহসী নেতার নাম। তাঁর রাজনৈতিক জীবন 
                 শুরু হয় ছাত্রাবস্থায়, যেখানে তিনি ঢাকা ইউনিভার্সিটি সেন্ট্রাল স্টুডেন্টস ইউনিয়ন (DUCSU)-এর জেনারেল সেক্রেটারি 
@@ -83,24 +83,24 @@ const BiographySection = () => {
             </div>
 
             {/* Timeline Section */}
-            <div className="space-y-6">
-              <h3 className="text-xl font-bold font-bengali text-foreground border-b-2 border-primary pb-2 inline-block">
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="text-lg sm:text-xl font-bold font-bengali text-foreground border-b-2 border-primary pb-2 inline-block">
                 রাজনৈতিক জীবনের মাইলফলক
               </h3>
 
-              <div className="space-y-5">
+              <div className="space-y-4 sm:space-y-5">
                 {milestones.map((milestone, index) => (
-                  <div key={index} className="flex gap-4 items-start">
-                    <div className={`px-3 py-1.5 rounded-full text-sm font-bold font-bengali whitespace-nowrap ${
+                  <div key={index} className="flex gap-3 sm:gap-4 items-start">
+                    <div className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-bold font-bengali whitespace-nowrap flex-shrink-0 ${
                       milestone.isCurrent 
                         ? 'bg-primary text-primary-foreground' 
                         : 'bg-primary/10 text-primary border border-primary/30'
                     }`}>
                       {milestone.year}
                     </div>
-                    <div>
-                      <h4 className="font-bengali font-semibold text-foreground">{milestone.title}</h4>
-                      <p className="font-bengali text-sm text-muted-foreground">{milestone.desc}</p>
+                    <div className="min-w-0">
+                      <h4 className="font-bengali font-semibold text-foreground text-sm sm:text-base">{milestone.title}</h4>
+                      <p className="font-bengali text-xs sm:text-sm text-muted-foreground">{milestone.desc}</p>
                     </div>
                   </div>
                 ))}

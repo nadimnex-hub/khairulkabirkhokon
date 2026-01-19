@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { ChevronDown, Play } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import heroBackground from "@/assets/hero-background.jpg";
+import ComplaintDialog from "./ComplaintDialog";
 
 const HeroSection = () => {
+  const [isComplaintOpen, setIsComplaintOpen] = useState(false);
+  
   const { data: heroContent } = useQuery({
     queryKey: ["site-content", "hero"],
     queryFn: async () => {
@@ -68,9 +72,9 @@ const HeroSection = () => {
               <Play className="w-5 h-5" />
               <span className="font-bengali">আমার সম্পর্কে জানুন</span>
             </a>
-            <a href="#vision" className="btn-outline-hero">
-              <span className="font-bengali">ভিশন দেখুন</span>
-            </a>
+            <button onClick={() => setIsComplaintOpen(true)} className="btn-outline-hero">
+              <span className="font-bengali">অভিযোগ / যোগাযোগ</span>
+            </button>
           </div>
         </div>
       </div>
@@ -82,6 +86,8 @@ const HeroSection = () => {
           <ChevronDown className="w-6 h-6" />
         </a>
       </div>
+
+      <ComplaintDialog open={isComplaintOpen} onOpenChange={setIsComplaintOpen} />
     </section>
   );
 };
